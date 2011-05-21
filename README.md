@@ -2,6 +2,8 @@
 
 A simple Clojure wrapper around the Lucene text tokenizer.  A wrapper for the Lucene [StandardAnalyzer](http://lucene.apache.org/java/3_0_3/api/core/org/apache/lucene/analysis/standard/StandardAnalyzer.html) and Lucene [StandardTokenizer](http://lucene.apache.org/java/3_0_3/api/core/org/apache/lucene/analysis/standard/StandardTokenizer.html) are provided.
 
+For a proper Clojure library for NLP see [clojure-nlp](https://github.com/dakrone/clojure-opennlp).
+
 The project can run from the command line and will tokenize each line of stdin, remove stopwords and write to stdout.
 
 ## Usage
