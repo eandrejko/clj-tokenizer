@@ -9,7 +9,7 @@ The project can run from the command line and will tokenize each line of stdin, 
 First clone the project.  Then set up your 
 
       lein deps
-      lein compile; line uberjar
+      lein compile; lein uberjar
 
 To use the tokenizer from the command line use `java -jar`
 
