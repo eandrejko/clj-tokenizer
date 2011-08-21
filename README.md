@@ -20,15 +20,25 @@ For example, to use the tokenizer from the command line use `java -jar`
 
 will tokenize Herman Melville's Moby Dick.
 
-To use the tokenizer within Clojure
+To use the tokenizer within Clojure first add the dependency to project.clj
+
+      [clj-tokenizer "0.1.0"]
+
+To create a token stream:
 
       (token-seq (token-stream "This is a string."))
       ;; ("This" "is" "a" "string")
 
-or to convert to lowercase and remove stopwords
+To convert to lowercase and remove stopwords:
 
       (token-seq (token-stream-without-stopwords "This is a string, without the stopwords."))
       ;; ("string" "without" "stopwords")
+
+To stem the words using the Snowball stemmer:
+
+      (token-seq (stemmed (token-stream-without-stopwords "Going to be Stemming some lemmings.")))
+      ;; ("go" "stem" "some" "lem")
+
 
 ## License
 
