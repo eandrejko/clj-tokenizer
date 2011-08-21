@@ -2,6 +2,8 @@
   (:require [clojure.contrib.duck-streams :as ds])
   (:require [clojure.contrib.str-utils :as su])
   (:import [org.apache.lucene.analysis.standard StandardTokenizer StandardAnalyzer])
+  (:import [org.apache.lucene.analysis.snowball SnowballFilter])
+  (:import [org.tartarus.snowball.ext EnglishStemmer])
   (:import [java.io StringReader])
   (:import [org.apache.lucene.util Version])
   (:import [org.apache.lucene.analysis Token])
@@ -20,6 +22,12 @@
         sa (StandardAnalyzer. (Version/LUCENE_30))]
     (.tokenStream sa "text" sr)))
 
+(defn stemmed
+  "builds a TokenStream from provided TokenStream with words stemmed"
+  [tk]
+  (SnowballFilter. tk (EnglishStemmer.)))
+
+
 (defn next-token
   "reads the next token as a string from the TokenStream tk"
   [tk]
@@ -37,7 +45,8 @@
 ;; usage
 (comment
   (token-seq (token-stream "this is a string"))
-  (token-seq (token-stream-without-stopwords "this is a string without the stopwords"))
+  (token-seq (token-stream-without-stopwords "This is a String without the stopwords"))
+  (token-seq (stemmed (token-stream-without-stopwords "Giving some Totals to mere Mortals")))
   )
 
 (defn -main
