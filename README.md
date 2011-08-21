@@ -15,7 +15,7 @@ First clone the project.  Then set up your
 
 For example, to use the tokenizer from the command line use `java -jar`
 
-      curl http://www.gutenberg.org/cache/epub/2701/pg2701.txt | java -jar clj-tokenizer-1.0.0-SNAPSHOT-standalone.jar | head -100
+      curl http://www.gutenberg.org/cache/epub/2701/pg2701.txt | java -jar clj-tokenizer-0.1.0-SNAPSHOT-standalone.jar | head -100
 
 
 will tokenize Herman Melville's Moby Dick.
