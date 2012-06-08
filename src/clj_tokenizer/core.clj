@@ -1,6 +1,6 @@
 (ns clj-tokenizer.core
-  (:require [clojure.contrib.duck-streams :as ds])
-  (:require [clojure.contrib.str-utils :as su])
+  (:require [clojure.string :as string]
+            [clojure.java.io :as io])
   (:import [org.apache.lucene.analysis.standard StandardTokenizer StandardAnalyzer])
   (:import [org.apache.lucene.analysis.snowball SnowballFilter])
   (:import [org.tartarus.snowball.ext EnglishStemmer])
@@ -8,7 +8,6 @@
   (:import [org.apache.lucene.util Version])
   (:import [org.apache.lucene.analysis Token])
   (:gen-class))
-
 
 (defn token-stream
   "builds a TokenStream from provided string str"
@@ -27,7 +26,6 @@
   [tk]
   (SnowballFilter. tk (EnglishStemmer.)))
 
-
 (defn next-token
   "reads the next token as a string from the TokenStream tk"
   [tk]
@@ -42,15 +40,8 @@
    (if-let [ntok (next-token tk)]
      (cons ntok (token-seq tk)))))
 
-;; usage
-(comment
-  (token-seq (token-stream "this is a string"))
-  (token-seq (token-stream-without-stopwords "This is a String without the stopwords"))
-  (token-seq (stemmed (token-stream-without-stopwords "Giving some Totals to mere Mortals")))
-  )
-
 (defn -main
-  [ & args]
-  (doall (map
-          (fn [line] (println (su/str-join " " ((comp token-seq token-stream-without-stopwords)line))))
-          (line-seq (java.io.BufferedReader. *in*)))))
+  [& args]
+  (doseq [line (line-seq (io/reader *in*))]
+    (println (string/join " " (token-seq
+                               (token-stream-without-stopwords line))))))
